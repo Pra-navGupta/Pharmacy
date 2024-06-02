@@ -1,0 +1,89 @@
+<!-- doctor details content -->
+<script>
+  function addDoctor()
+  {
+      <!-- alert("function called"); -->
+      document.getElementById("doctor_acknowledgement").innerHTML = "";
+  var doctor_name = document.getElementById("doctor_name");
+  // var supplier_email = document.getElementById("supplier_email");
+  var contact_number = document.getElementById("doctor_contact_number");
+  var doctor_address = document.getElementById("doctor_address");
+  if(!validateName(doctor_name.value, "name_error"))
+    doctor_name.focus();
+  else if(!validateContactNumber(contact_number.value, "contact_number_error"))
+    contact_number.focus();
+  else if(!validateAddress(doctor_address.value, "address_error"))
+    doctor_address.focus();
+  else {
+    var xhttp = new XMLHttpRequest();
+  	xhttp.onreadystatechange = function() {
+  		if(xhttp.readyState = 4 && xhttp.status == 200)
+  			document.getElementById("doctor_acknowledgement").innerHTML = xhttp.responseText;
+  	};
+  	xhttp.open("GET", "php/add_new_doctor.php?name=" + doctor_name.value + "&contact_number=" + contact_number.value + "&address=" + doctor_address.value, true);
+  	xhttp.send();
+  }
+  }
+</script>
+<!-- doctor name control -->
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="font-weight-bold" for="doctor_name">Doctor Name :</label>
+    <input type="text" class="form-control" placeholder="Name" id="doctor_name" onkeyup="validateName(this.value, 'name_error');">
+    <code class="text-danger small font-weight-bold float-right" id="name_error" style="display: none;"></code>
+  </div>
+</div>
+
+
+<!-- doctor contact number control -->
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="font-weight-bold" for="doctor_contact_number">Doctor Contact Number :</label>
+    <input type="number" class="form-control" placeholder="Contact Number" id="doctor_contact_number" onblur="validateContactNumber(this.value, 'contact_number_error');">
+    <code class="text-danger small font-weight-bold float-right" id="contact_number_error" style="display: none;"></code>
+  </div>
+</div>
+
+<!-- doctor address control -->
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="font-weight-bold" for="doctor_address">Doctor Address :</label>
+    <textarea class="form-control" placeholder="Address" id="doctor_address" onblur="validateAddress(this.value, 'address_error');"></textarea>
+    <code class="text-danger small font-weight-bold float-right" id="address_error" style="display: none;"></code>
+  </div>
+</div>
+<!-- doctor details content end -->
+
+<div class="col col-md-12">
+  <hr class="col-md-12 float-left" style="padding: 0px; width: 95%; border-top: 2px solid  #02b6ff;">
+</div>
+
+<!-- new user button -->
+<div class="row col col-md-12">
+  &emsp;
+  <div class="form-group m-auto">
+    <button class="btn btn-primary form-control" onclick="addDoctor();">ADD</button>
+  </div>
+  <!--
+  &emsp;
+  <div class="form-group">
+    <button class="btn btn-success form-control">Save and Add Another</button>
+  </div>
+  -->
+</div>
+<!-- result message -->
+<div id="doctor_acknowledgement" class="col-md-12 h5 text-success font-weight-bold text-center" style="font-family: sans-serif;"></div>
+
+
+
+
+
+
+<!-- doctor email control
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="font-weight-bold" for="doctor_email">doctor Email :</label>
+    <input type="email" autocomplete="off" class="form-control" placeholder="Email" id="doctor_email" onblur="validateEmail(this.value, 'email_error');">
+    <code class="text-danger small font-weight-bold float-right" id="email_error" style="display: none;"></code>
+  </div>
+</div> -->
